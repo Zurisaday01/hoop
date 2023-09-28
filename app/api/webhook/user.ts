@@ -35,8 +35,17 @@ export default async function handler(
 	// Handle the webhook
 	const eventType: EventType = evt.type;
 	if (eventType === 'user.created' || eventType === 'user.updated') {
-		const { id, ...attributes } = evt.data;
-		console.log(attributes);
+		const { id, first_name, last_name, username, profile_image_url } = evt.data;
+
+		// build the name
+		const name = `${first_name} ${last_name}`;
+
+		await createUpdateUser({
+			userId: id,
+			username: username,
+			name: name,
+			image: profile_image_url,
+		});
 	}
 
 	res.json({});
