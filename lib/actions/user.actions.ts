@@ -24,11 +24,11 @@ export const createUpdateUser = async ({
 
 	try {
 		// query
-		// await User.findByIdAndUpdate(
-		// 	userId,
-		// 	{ username: username, name, image },
-		// 	{ upsert: true }
-		// );
+		await User.findByIdAndUpdate(
+			userId,
+			{ username: username, name, image },
+			{ upsert: true }
+		);
 
 		console.log(userId, username, name, image);
 	} catch (error: any) {
