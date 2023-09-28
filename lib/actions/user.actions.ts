@@ -7,7 +7,7 @@ import { connectToDB } from '../mongoose';
 
 interface createUpdateParams {
 	userId: string | number;
-	username: string | number;
+	username: string | null;
 	name: string;
 	image: string | number;
 }
