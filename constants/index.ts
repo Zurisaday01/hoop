@@ -1,4 +1,12 @@
-export const sidebarLinks = [
+import dynamicIconImports from 'lucide-react/dynamicIconImports';
+
+interface Link {
+	iconName: keyof typeof dynamicIconImports;
+	route: string;
+	label: string;
+}
+
+export const sidebarLinks: Link[] = [
 	{
 		iconName: 'layout-grid',
 		route: '/',
