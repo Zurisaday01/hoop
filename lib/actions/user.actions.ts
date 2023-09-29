@@ -4,8 +4,9 @@
 import User from '../models/user.models';
 import { revalidatePath } from 'next/cache';
 import { connectToDB } from '../mongoose';
+import mongoose from 'mongoose';
 
-interface createUpdateParams {
+interface createUserParams {
 	userId: string | number;
 	username: string | null;
 	name: string;
@@ -13,25 +14,25 @@ interface createUpdateParams {
 }
 
 // create or update user
-export const createUpdateUser = async ({
+export const createUser = async ({
 	userId,
 	username,
 	name,
 	image,
-}: createUpdateParams) => {
+}: createUserParams) => {
 	// connect to mongoDB
 	connectToDB();
 
 	try {
+		// convert = id(string) => id(ObjectId)
 		// query
-		await User.findByIdAndUpdate(
-			userId,
-			{ username: username, name, image },
-			{ upsert: true }
-		);
-
-		console.log(userId, username, name, image);
+		await User.create({
+			_id: new mongoose.Types.ObjectId(userId),
+			username: username,
+			name,
+			image,
+		});
 	} catch (error: any) {
-		throw new Error(`Failed to create/update user ${error.message}`);
+		throw new Error(`Failed to create user ${error.message}`);
 	}
 };

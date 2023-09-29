@@ -4,7 +4,7 @@ import { WebhookEvent } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
 // User actions
-import { createUpdateUser } from '@/lib/actions/user.actions';
+import { createUser } from '@/lib/actions/user.actions';
 
 export async function POST(req: Request) {
 	// You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -54,14 +54,14 @@ export async function POST(req: Request) {
 
 	const eventType = evt.type;
 
-	if (eventType === 'user.created' || eventType === 'user.updated') {
+	if (eventType === 'user.created') {
 		const { id, first_name, last_name, username, image_url } = evt.data || {};
 
 		try {
 			// build the name
 			const name = `${first_name} ${last_name}`;
 
-			await createUpdateUser({
+			await createUser({
 				userId: id,
 				username: username,
 				name: name,
@@ -70,13 +70,15 @@ export async function POST(req: Request) {
 
 			return NextResponse.json({ message: 'User created' }, { status: 201 });
 		} catch (err) {
-			console.log('user.created or user.updated failed, ', err);
+			console.log('user.created failed, ', err);
 			return NextResponse.json(
 				{ message: `Internal Server Error ${err}]` },
 				{ status: 500 }
 			);
 		}
 	}
+
+	// || eventType === 'user.updated'
 
 	return new Response('', { status: 201 });
 }
