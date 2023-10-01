@@ -58,12 +58,12 @@ export const POST = async (req: Request) => {
 		const { id, first_name, last_name, username, image_url } = evt.data || {};
 
 		try {
-			// await createUser({
-			// 	userId: id,
-			// 	username: username,
-			// 	name: `${first_name} ${last_name}`,
-			// 	image: image_url,
-			// });
+			await createUser({
+				userId: id,
+				username: username,
+				name: `${first_name} ${last_name}`,
+				image: image_url,
+			});
 
 			return NextResponse.json({ message: 'User created' }, { status: 201 });
 		} catch (err) {
