@@ -12,8 +12,12 @@ interface createUserParams {
 	name: string;
 	image: string | number;
 }
+interface updateUserParams {
+	userId: string | number;
+	username: string | null;
+	image: string | number;
+}
 
-// create or update user
 export const createUser = async ({
 	userId,
 	username,
@@ -24,17 +28,37 @@ export const createUser = async ({
 	connectToDB();
 
 	try {
-		// convert = id(string) => id(ObjectId)
-		// query
-
-		console.log('creating...');
-
 		await User.create({
 			userId: userId,
 			username: username,
 			name: name,
 			image: image,
 		});
+	} catch (error: any) {
+		throw new Error(`Failed to create user ${error.message}`);
+	}
+};
+
+export const updateUser = async ({
+	userId,
+	username,
+	image,
+}: updateUserParams) => {
+	// connect to mongoDB
+	connectToDB();
+
+	try {
+		const user = await User.findOneAndUpdate(
+			{ userId: userId },
+			{ username: username, image: image },
+			{
+				new: true,
+			}
+		);
+
+		if (!user) {
+			throw new Error('No user found with that ID');
+		}
 	} catch (error: any) {
 		throw new Error(`Failed to create user ${error.message}`);
 	}
