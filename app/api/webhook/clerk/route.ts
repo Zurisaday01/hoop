@@ -4,7 +4,7 @@ import { WebhookEvent } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
 // User actions
-import { createUser, updateUser } from '@/lib/actions/user.actions';
+import { createUser, deleteUser, updateUser } from '@/lib/actions/user.actions';
 
 export const POST = async (req: Request) => {
 	// You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -88,8 +88,20 @@ export const POST = async (req: Request) => {
 			);
 		}
 	}
+	if (eventType === 'user.deleted') {
+		const { id } = evt.data || {};
 
-	// || eventType === 'user.updated'
+		try {
+			await deleteUser({ userId: id });
+
+			return NextResponse.json({ message: 'User deleted' }, { status: 204 });
+		} catch (err) {
+			return NextResponse.json(
+				{ message: `Internal Server Error ${err}` },
+				{ status: 500 }
+			);
+		}
+	}
 
 	return new Response('', { status: 201 });
 };

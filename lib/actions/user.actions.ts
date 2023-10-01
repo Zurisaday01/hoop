@@ -63,3 +63,25 @@ export const updateUser = async ({
 		throw new Error(`Failed to create user ${error.message}`);
 	}
 };
+
+export const deleteUser = async ({
+	userId,
+}: {
+	userId: string | undefined;
+}) => {
+	// connect to mongoDB
+	connectToDB();
+
+	try {
+		// Find the community by its ID and delete it
+		const user = await User.findOneAndDelete({
+			userId: userId,
+		});
+
+		if (!user) {
+			throw new Error('No user found with that ID');
+		}
+	} catch (error: any) {
+		throw new Error(`Failed to delete user ${error.message}`);
+	}
+};
