@@ -26,11 +26,14 @@ export const createUser = async ({
 	try {
 		// convert = id(string) => id(ObjectId)
 		// query
+
+		console.log('creating...');
+
 		await User.create({
-			_id: new mongoose.Types.ObjectId(userId),
+			userId: userId,
 			username: username,
-			name,
-			image,
+			name: name,
+			image: image,
 		});
 	} catch (error: any) {
 		throw new Error(`Failed to create user ${error.message}`);

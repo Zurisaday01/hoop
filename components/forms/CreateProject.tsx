@@ -53,7 +53,6 @@ const CreateProject = () => {
 	const { register, handleSubmit, formState } = useForm<FormInput>();
 	const { isSubmitting } = formState;
 
-	console.log(isSubmitting, 'STATUS');
 	// toast
 	const { toast } = useToast();
 

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-	id: {
+	userId: {
 		type: String,
 		required: true,
 		unique: true,
@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	image: String ,
+	image: String,
 });
 
 userSchema.virtual('projects', {
@@ -23,6 +23,8 @@ userSchema.virtual('projects', {
 	localField: '_id',
 	foreignField: 'creatorId',
 });
+
+// delete mongoose.models['User'];
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);
 
