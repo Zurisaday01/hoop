@@ -7,12 +7,6 @@ import {
 	updateDocument,
 } from '@/lib/actions/document.actions';
 
-export const config = {
-	api: {
-		bodyParser: false,
-	},
-};
-
 const app = express();
 const httpServer = createServer(app);
 
