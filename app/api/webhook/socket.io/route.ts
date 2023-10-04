@@ -1,6 +1,7 @@
 import { createServer } from 'http';
 import { Server, ServerOptions, Socket } from 'socket.io';
 import express from 'express';
+import cors from 'cors';
 
 import {
 	getOrCreateDocument,
@@ -13,8 +14,16 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
 	cors: {
 		origin: 'http://localhost:3000',
+		methods: ['GET', 'POST'],
 	},
 } as Partial<ServerOptions>);
+
+app.use(
+	cors({
+		origin: 'http://localhost:3000',
+		methods: ['GET', 'POST'],
+	})
+);
 
 io.on('connection', async (socket: Socket) => {
 	//attribute of the Socket instance, (listener)

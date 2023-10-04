@@ -35,7 +35,7 @@ export default function TextEditor({ projectId }: TextEditorProps) {
 	}
 
 	useEffect(() => {
-		const s = io('http://localhost:3001');
+		const s = io('hoop-6m7lzku00-zurisaday01.vercel.app');
 		setSocket(s);
 
 		return () => {
