@@ -27,7 +27,7 @@ const io = new Server(httpServer, {
 	},
 } as Partial<ServerOptions>);
 
-app.get('/api/socket.io/', (req, res) => {
+app.get('/api/socket.io/socket.io', (req, res) => {
 	io.on('connection', async (socket: Socket) => {
 		//attribute of the Socket instance, (listener)
 		socket.on('get-document', async (projectId: string) => {
