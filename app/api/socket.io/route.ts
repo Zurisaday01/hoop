@@ -21,23 +21,25 @@ const io = new Server(httpServer, {
 	},
 } as Partial<ServerOptions>);
 
-io.on('connection', async (socket: Socket) => {
-	//attribute of the Socket instance, (listener)
-	socket.on('get-document', async (projectId: string) => {
-		// subscribe the socket to given document
-		const document = await getOrCreateDocument({ projectId });
-		socket.join(document._id);
+app.get('/api/socket.io/', (req, res) => {
+	io.on('connection', async (socket: Socket) => {
+		//attribute of the Socket instance, (listener)
+		socket.on('get-document', async (projectId: string) => {
+			// subscribe the socket to given document
+			const document = await getOrCreateDocument({ projectId });
+			socket.join(document._id);
 
-		// send and recive the data
-		socket.emit('load-document', document.data);
+			// send and recive the data
+			socket.emit('load-document', document.data);
 
-		// listen the send changes
-		socket.on('send-changes', (delta: any) => {
-			socket.broadcast.to(document._id).emit('receive-changes', delta);
-		});
+			// listen the send changes
+			socket.on('send-changes', (delta: any) => {
+				socket.broadcast.to(document._id).emit('receive-changes', delta);
+			});
 
-		socket.on('save-document', async (data: any) => {
-			await updateDocument({ id: document._id, data });
+			socket.on('save-document', async (data: any) => {
+				await updateDocument({ id: document._id, data });
+			});
 		});
 	});
 });

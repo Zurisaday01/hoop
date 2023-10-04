@@ -35,7 +35,7 @@ export default function TextEditor({ projectId }: TextEditorProps) {
 	}
 
 	useEffect(() => {
-		const s = io('https://hoop-lac.vercel.app/webhook/socket.io');
+		const s = io('https://hoop-lac.vercel.app/api/socket.io');
 
 		setSocket(s);
 
