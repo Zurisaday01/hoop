@@ -14,6 +14,13 @@ const httpServer = createServer(app);
 // Use the CORS middleware to enable CORS for your server
 app.use(cors());
 
+app.use((req, res, next) => {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT');
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+	next();
+});
+
 const io = new Server(httpServer, {
 	cors: {
 		origin: '*',
