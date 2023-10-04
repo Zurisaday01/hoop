@@ -85,3 +85,24 @@ export const deleteUser = async ({
 		throw new Error(`Failed to delete user ${error.message}`);
 	}
 };
+
+export const getUser = async (userId: string) => {
+	// connect to mongoDB
+	connectToDB();
+
+	console.log(userId);
+
+	try {
+		// Find the user by the Id from clerk
+		const user = await User.findOne({ userId: userId });
+		// .populate('projects');
+
+		if (!user) {
+			throw new Error('No user found with that ID');
+		}
+
+		return user;
+	} catch (error: any) {
+		throw new Error(`Failed to get user ${error.message}`);
+	}
+};

@@ -5,8 +5,12 @@ const documentSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Project',
 	},
-	tiptap_content: String,
+	data: {
+		type: String,
+	},
 });
+
+// delete mongoose.models['Document'];
 
 const Document =
 	mongoose.models.Document || mongoose.model('Document', documentSchema);

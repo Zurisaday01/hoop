@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
 	image: String,
 });
 
+// populating virtuals
 userSchema.virtual('projects', {
 	ref: 'Project',
 	localField: '_id',

@@ -33,7 +33,7 @@ const projectSchema = new mongoose.Schema(
 	}
 );
 
-projectSchema.virtual('todo', {
+projectSchema.virtual('todoId', {
 	ref: 'Todo',
 	localField: '_id',
 	foreignField: 'projectId',
