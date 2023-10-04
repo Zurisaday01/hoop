@@ -11,19 +11,15 @@ import {
 const app = express();
 const httpServer = createServer(app);
 
+// Use the CORS middleware to enable CORS for your server
+app.use(cors());
+
 const io = new Server(httpServer, {
 	cors: {
 		origin: 'http://localhost:3000',
 		methods: ['GET', 'POST'],
 	},
 } as Partial<ServerOptions>);
-
-app.use(
-	cors({
-		origin: 'http://localhost:3000',
-		methods: ['GET', 'POST'],
-	})
-);
 
 io.on('connection', async (socket: Socket) => {
 	//attribute of the Socket instance, (listener)
