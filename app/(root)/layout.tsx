@@ -18,6 +18,10 @@ import { extractRouterConfig } from 'uploadthing/server';
 // TOASTER SHADCN
 import { Toaster } from '@/components/ui/toaster';
 
+// REACT QUERY
+import { ProvidesTheQueryClient } from './query-provider';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
 const josefinSans = Josefin_Sans({
 	subsets: ['latin'],
 	variable: '--font-josefin-sans',
@@ -39,26 +43,29 @@ export default function RootLayout({
 }) {
 	return (
 		<ClerkProvider>
-			<html lang='en'>
-				<body
-					className={`${nunito.variable} ${josefinSans.variable} transition duration-300`}
-					suppressHydrationWarning={true}>
-					<NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+			<ProvidesTheQueryClient>
+				<html lang='en'>
+					<ReactQueryDevtools initialIsOpen={false} />
+					<body
+						className={`${nunito.variable} ${josefinSans.variable} transition duration-300`}
+						suppressHydrationWarning={true}>
+						<NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
 
-					<ThemeProvider attribute='class'>
-						<Topbar />
+						<ThemeProvider attribute='class'>
+							<Topbar />
 
-						<main className='flex flex-row '>
-							<LeftSidebar />
-							<section className='main-container'>
-								<div className='w-full max-w-5xl pt-4'>{children}</div>
-							</section>
-						</main>
-						<Bottombar />
-					</ThemeProvider>
-					<Toaster />
-				</body>
-			</html>
+							<main className='flex flex-row '>
+								<LeftSidebar />
+								<section className='main-container'>
+									<div className='w-full max-w-5xl pt-4 '>{children}</div>
+								</section>
+							</main>
+							<Bottombar />
+						</ThemeProvider>
+						<Toaster />
+					</body>
+				</html>
+			</ProvidesTheQueryClient>
 		</ClerkProvider>
 	);
 }

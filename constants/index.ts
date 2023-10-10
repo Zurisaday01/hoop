@@ -13,9 +13,9 @@ export const sidebarLinks: Link[] = [
 		label: 'Home',
 	},
 	{
-		iconName: 'search',
-		route: '/search',
-		label: 'Search',
+		iconName: 'folder-kanban',
+		route: '/projects',
+		label: 'Projects',
 	},
 	{
 		iconName: 'file-plus-2',

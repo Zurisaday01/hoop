@@ -1,21 +1,28 @@
+'use client';
 import ProjectHeader from '@/components/shared/ProjectHeader';
 import { getProject } from '@/lib/actions/project.actions';
 
 import ProjectOptions from '@/components/shared/ProjectOptions';
+import useProject from '@/hooks/useProject';
 
-const page = async ({ params }: { params: { id: string } }) => {
-	const project = await getProject(params.id);
+import Spinner from '@/components/shared/Spinner';
 
-	if (!project) return null;
+const page = ({ params }: { params: { id: string } }) => {
+	// const project = await getProject(params.id);
+	const { isLoading, project } = useProject(params.id);
+
+	if (isLoading || !project) return <Spinner />;
 
 	return (
 		<section className='flex flex-col gap-8'>
 			<ProjectHeader
+				id={project._id}
 				name={project.name}
 				image={project.image}
 				status={project.status}
+				creatorId={project.creatorId}
 			/>
-			<ProjectOptions projectId={params.id}/>
+			<ProjectOptions project={project} />
 		</section>
 	);
 };

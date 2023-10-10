@@ -1,12 +1,9 @@
 'use client';
 import { sidebarLinks } from '@/constants';
-import { useTheme } from 'next-themes';
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import Icon from './Icon';
-import dynamicIconImports from 'lucide-react/dynamicIconImports';
 
 interface LinksProps {
 	linkStyle: string;

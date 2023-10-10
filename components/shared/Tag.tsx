@@ -1,10 +1,10 @@
 interface TagProps {
 	status: string;
+	mini: boolean;
 	children: React.ReactNode;
 }
 
-
-const Tag = ({ status, children }: TagProps) => {
+const Tag = ({ status, mini, children }: TagProps) => {
 	const bgColors = {
 		Completed: 'bg-[#FFF8BA]',
 		'In progress': 'bg-[#E9D2FF]',
@@ -18,9 +18,13 @@ const Tag = ({ status, children }: TagProps) => {
 
 	return (
 		<span
-			className={`py-1 px-5 uppercase  rounded-full text-[10px] ${
-				bgColors[status as keyof typeof bgColors]
-			} ${textColors[status as keyof typeof textColors]}`}>
+			className={`${
+				!mini
+					? 'py-1 px-4 uppercase  rounded-full text-[10px]'
+					: 'py-1 px-3 uppercase rounded-full text-[5px]'
+			} ${bgColors[status as keyof typeof bgColors]} ${
+				textColors[status as keyof typeof textColors]
+			}`}>
 			{children}
 		</span>
 	);
