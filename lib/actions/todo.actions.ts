@@ -62,7 +62,7 @@ interface Todo {
 	tasks: Task[];
 }
 
-export const getTodo = async (projectId: string): Promise<Todo> => {
+export const getTodo = async (projectId: string) => {
 	// connect to mongoDB
 	connectToDB();
 	try {
