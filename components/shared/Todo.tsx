@@ -1,9 +1,6 @@
-import { getTodo } from '@/lib/actions/todo.actions';
 import CreateTask from '../forms/CreateTask';
-import { useEffect, useState } from 'react';
 import TasksList from './TasksList';
 import Spinner from './Spinner';
-import { useRouter } from 'next/router';
 import useTodo from '@/hooks/useTodo';
 
 const Todo = ({ projectId }: { projectId: string }) => {

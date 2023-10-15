@@ -53,7 +53,7 @@ const ProjectOptions = ({ project }: { project: Project }) => {
 				</TabsTrigger>
 			</TabsList>
 			<TabsContent value='document'>
-				<Card className='w-full'>
+				<Card className='w-full dark:bg-dark-2'>
 					<CardHeader>
 						<CardTitle className='font-josefin-sans'>Google Docs</CardTitle>
 					</CardHeader>
@@ -63,7 +63,7 @@ const ProjectOptions = ({ project }: { project: Project }) => {
 				</Card>
 			</TabsContent>
 			<TabsContent value='todo'>
-				<Card>
+				<Card className='w-full dark:bg-dark-2'>
 					<CardHeader>
 						<CardTitle className='font-josefin-sans'>To Do</CardTitle>
 					</CardHeader>

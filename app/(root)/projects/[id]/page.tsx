@@ -1,7 +1,5 @@
 'use client';
 import ProjectHeader from '@/components/shared/ProjectHeader';
-import { getProject } from '@/lib/actions/project.actions';
-
 import ProjectOptions from '@/components/shared/ProjectOptions';
 import useProject from '@/hooks/useProject';
 

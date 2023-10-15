@@ -12,7 +12,6 @@ import {
 import UpdateProject from '../forms/UpdateProject';
 import DeleteProject from '../forms/DeleteProject';
 import { DialogDescription } from '@radix-ui/react-dialog';
-import MiniSpinner from './MiniSpinner';
 
 interface ProjectHeaderProps {
 	id: string;
@@ -49,7 +48,7 @@ const ProjectHeader = ({
 				<div className='flex gap-3 mt-1'>
 					<Dialog>
 						<DialogTrigger asChild>
-							<Button className='bg-[#6787F9] transition duration-150 hover:bg-[#3e58b4]'>
+							<Button className='bg-[#6787F9] dark:bg-[#6787F9] dark:text-light-1 transition duration-150 hover:bg-[#3e58b4]'>
 								Update
 							</Button>
 						</DialogTrigger>
@@ -71,7 +70,7 @@ const ProjectHeader = ({
 
 					<Dialog>
 						<DialogTrigger asChild>
-							<Button className='bg-[#FF6421] transition duration-150 hover:bg-[#963823]'>
+							<Button className='bg-[#FF6421] dark:bg-[#FF6421] dark:text-light-1  transition duration-150 hover:bg-[#963823]'>
 								Delete
 							</Button>
 						</DialogTrigger>

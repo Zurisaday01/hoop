@@ -1,15 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-// import SignOutBtn from './SignOutBtn';
-// import { UserButton } from '@clerk/nextjs';
 
 import {
-	ClerkProvider,
 	SignedIn,
 	SignedOut,
 	SignInButton,
 	UserButton,
-	UserProfile,
 } from '@clerk/nextjs';
 import ThemeSwitcher from '../ui/ThemeSwitcher';
 

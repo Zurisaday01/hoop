@@ -1,6 +1,5 @@
 'use client';
 // REACT HOOK FORM
-import ReactDOM from 'react-dom'; // Type
 import { useForm } from 'react-hook-form';
 
 // UI SHADCN COMPONENTS

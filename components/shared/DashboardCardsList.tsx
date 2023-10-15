@@ -1,14 +1,5 @@
 import DashboardCard from './DashboardCard';
 
-interface Project {
-	_id: string;
-	name: string;
-	image: string;
-	status: string;
-	creatorId: string;
-	documentId: string;
-}
-
 const DashboardCardsList = ({
 	total,
 	completed,

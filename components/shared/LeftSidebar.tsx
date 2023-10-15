@@ -1,5 +1,4 @@
 import Links from './Links';
-import SignOutBtn from './SignOutBtn';
 
 const LeftSidebar = () => {
 	return (

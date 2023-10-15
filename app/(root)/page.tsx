@@ -3,8 +3,7 @@ import DashboardCardsList from '@/components/shared/DashboardCardsList';
 import Spinner from '@/components/shared/Spinner';
 import Stadistics from '@/components/shared/Stadistics';
 import useProjects from '@/hooks/useProjects';
-import { getProjects } from '@/lib/actions/project.actions';
-import { auth, useAuth } from '@clerk/nextjs';
+import { useAuth } from '@clerk/nextjs';
 
 export default function Home() {
 	const { userId } = useAuth();
