@@ -27,7 +27,7 @@ import { useToast } from '../ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { isBase64Image, useUploadThing } from '@/lib/utils';
+import { isBase64Image, useUploadThing, is } from '@/lib/utils';
 import MiniSpinner from '../shared/MiniSpinner';
 import { ToastAction } from '@radix-ui/react-toast';
 import Link from 'next/link';
