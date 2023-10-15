@@ -1,58 +1,67 @@
 'use server';
-import Document from '../models/document.models';
-import { connectToDB } from '../mongoose';
 
-export const getOrCreateDocument = async ({
-	projectId,
-	data = '',
-}: {
-	projectId: string;
-	data?: string;
-}) => {
-	// connect to mongoDB
-	connectToDB();
-
+export const getDocument = async (token: string | undefined) => {
 	try {
-		if (!projectId) {
-			throw new Error('projectId is required');
-		}
+		const documentID = '1dfEzf6LjnG6if73Zh5S4qfCjggP6BADdVkb4a1E0HUg';
+		let fetch_url = `https://docs.googleapis.com/v1/documents/${documentID}`;
 
-		// get Document from DB if exists and update it
-		const document = await Document.findOne({ projectId });
+		let fetch_options = {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			},
+		};
 
-		console.log('DOCUMENT', document);
+		const response = await fetch(fetch_url, fetch_options);
 
-		// if it does not, create it
-		if (!document) {
-			return await Document.create({
-				projectId: projectId,
-				data: data,
-			});
-		} else {
-			return document;
-		}
+		const data = await response.json(); // Parse the response JSON
+
+		return data;
 	} catch (error: any) {
-		throw new Error(`Failed to get or create document ${error.message}`);
+		throw new Error(`Failed to get Google Docs document ${error.message}`);
 	}
 };
 
-export const updateDocument = async ({
-	id,
-	data = '',
-}: {
-	id: string;
-	data: string;
-}) => {
-	// connect to mongoDB
-	connectToDB();
-
+export const createGoogleDocument = async (token: string, name: string) => {
 	try {
-		const document = await Document.findByIdAndUpdate(id, { data });
+		const response = await fetch('https://docs.googleapis.com/v1/documents', {
+			method: 'POST',
+			body: JSON.stringify({
+				title: `${name} Project`,
+			}),
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			},
+		});
 
-		if (!document) {
-			throw new Error('No document found');
-		}
+		const data = await response.json();
+
+		return data;
 	} catch (error: any) {
-		throw new Error(`Failed to update document ${error.message}`);
+		throw new Error(`Failed to create Google Docs document ${error.message}`);
+	}
+};
+
+
+export const deleteGoogleDocument =  async (token: string, name: string) => {
+	try {
+		const response = await fetch('https://docs.googleapis.com/v1/documents', {
+			method: 'POST',
+			body: JSON.stringify({
+				title: `${name} Project`,
+			}),
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			},
+		});
+
+		const data = await response.json();
+
+		return data;
+	} catch (error: any) {
+		throw new Error(`Failed to create Google Docs document ${error.message}`);
 	}
 };

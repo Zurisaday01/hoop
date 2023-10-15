@@ -27,6 +27,7 @@ import { useToast } from '../ui/use-toast';
 
 import { PlusIcon } from 'lucide-react';
 import { useCreateSubtask } from '@/hooks/useCreateSubtask';
+import MiniSpinner from '../shared/MiniSpinner';
 
 const FormSchema = z.object({
 	content: z.string().min(5, {
@@ -84,13 +85,15 @@ const CreateSubtask = ({
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className='p-[7px] h-7 w-7 rounded-full bg-primary-light  hover:bg-primary-dark  dark:bg-primary-light text-dark-1 dark:hover:bg-primary-dark transition duration-300 ease-in-out disabled:bg-gray-400 mr-3'>
+				<Button className='p-[7px] h-7 w-7 rounded-full bg-primary-light  hover:bg-primary-dark  dark:bg-primary-light text-dark-1 dark:hover:bg-primary-dark transition duration-300 ease-in-out disabled:bg-gray-400 mr-2'>
 					<PlusIcon className='w-full' />
 				</Button>
 			</DialogTrigger>
-			<DialogContent className='sm:max-w-[415px]'>
+			<DialogContent className='sm:max-w-[415px] bg-light-2'>
 				<DialogHeader>
-					<DialogTitle>Create subtask</DialogTitle>
+					<DialogTitle>
+						<h2 className='font-josefin-sans text-2xl'>Create subtask</h2>
+					</DialogTitle>
 					<DialogDescription>
 						You can break down the steps of the task{' '}
 						<span className='text-dark-1 dark:text-light-1'>"{content}"</span>
@@ -131,7 +134,7 @@ const CreateSubtask = ({
 										<Input
 											placeholder='New subtask... '
 											{...field}
-											className='border border-slate-400'
+											className='border-none'
 											disabled={form.formState.isSubmitting || isCreating}
 										/>
 									</FormControl>
@@ -143,7 +146,11 @@ const CreateSubtask = ({
 								type='submit'
 								className='bg-primary-light  hover:bg-primary-dark  dark:bg-primary-light text-dark-1 dark:hover:bg-primary-dark transition duration-300 ease-in-out disabled:bg-gray-400'
 								disabled={form.formState.isSubmitting || isCreating}>
-								Create
+								{form.formState.isSubmitting || isCreating ? (
+									<MiniSpinner />
+								) : (
+									<span>Create</span>
+								)}
 							</Button>
 						</DialogFooter>
 					</form>

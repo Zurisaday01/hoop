@@ -9,6 +9,7 @@ import {
 	SignedOut,
 	SignInButton,
 	UserButton,
+	UserProfile,
 } from '@clerk/nextjs';
 import ThemeSwitcher from '../ui/ThemeSwitcher';
 

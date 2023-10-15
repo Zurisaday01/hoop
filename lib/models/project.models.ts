@@ -22,8 +22,7 @@ const projectSchema = new mongoose.Schema(
 			ref: 'User',
 		},
 		documentId: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Document',
+			type: String,
 		},
 	},
 	{
@@ -40,6 +39,7 @@ projectSchema.virtual('todoId', {
 	justOne: true,
 });
 
+// delete mongoose.models['Project'];
 const Project =
 	mongoose.models.Project || mongoose.model('Project', projectSchema);
 

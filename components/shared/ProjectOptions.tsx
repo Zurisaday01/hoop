@@ -58,7 +58,7 @@ const ProjectOptions = ({ project }: { project: Project }) => {
 						<CardTitle className='font-josefin-sans'>Google Docs</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<Document />
+						<Document documentId={project.documentId} />
 					</CardContent>
 				</Card>
 			</TabsContent>

@@ -2,9 +2,9 @@
 
 // Model
 import User from '../models/user.models';
-import { revalidatePath } from 'next/cache';
 import { connectToDB } from '../mongoose';
-import mongoose from 'mongoose';
+import { auth } from '@clerk/nextjs';
+import clerk from '@clerk/clerk-sdk-node';
 
 interface createUserParams {
 	userId: string | number;
@@ -17,6 +17,23 @@ interface updateUserParams {
 	username: string | null;
 	image: string | number;
 }
+
+export const getOauthAccessToken = async () => {
+	try {
+		const { userId } = auth();
+
+		const [OauthAccessToken] = await clerk.users.getUserOauthAccessToken(
+			userId,
+			'oauth_google'
+		);
+
+		const { token } = OauthAccessToken;
+
+		return token;
+	} catch (error: any) {
+		throw new Error(`Failed to get Google access token ${error.message}`);
+	}
+};
 
 export const createUser = async ({
 	userId,

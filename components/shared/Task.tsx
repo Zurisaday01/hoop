@@ -58,7 +58,7 @@ const Task = ({ task, todoId }: TaskProps) => {
 				<AccordionItem value='item-1' className='w-full'>
 					<AccordionTrigger disabled={isEdit}>
 						<div className='flex justify-between w-full'>
-							<div className='flex gap-3 w-full items-center'>
+							<div className='flex gap-3 w-full items-center '>
 								<CheckboxDone
 									isTaskDone={isTaskDone}
 									todoId={todoId}
@@ -139,12 +139,17 @@ const Task = ({ task, todoId }: TaskProps) => {
 						isEdit={isEdit}
 					/>
 				</div>
-				<CreateSubtask
-					todoId={todoId}
-					taskId={task._id}
-					content={content}
-					numSubtasks={subtasks.length}
-				/>
+				<div className='flex'>
+					<CreateSubtask
+						todoId={todoId}
+						taskId={task._id}
+						content={content}
+						numSubtasks={subtasks.length}
+					/>
+					<span className='font-nunito text-[10px] mt-[6.5px] text-primary-light block'>
+						{subtasks.filter(task => task.done).length}/{subtasks.length}
+					</span>
+				</div>
 			</div>
 		</div>
 	);

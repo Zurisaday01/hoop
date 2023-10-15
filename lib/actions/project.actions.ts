@@ -4,8 +4,10 @@ import { FilterQuery, SortOrder } from 'mongoose';
 //Model
 import Project from '../models/project.models';
 import { connectToDB } from '../mongoose';
-import { getOrCreateDocument } from './document.actions';
-import { createTodo, getTodo } from './todo.actions';
+import { createGoogleDocument } from './document.actions';
+import { createTodo, deleteTodo } from './todo.actions';
+import User from '../models/user.models';
+import { getOauthAccessToken } from './user.actions';
 
 interface createProjectParams {
 	name: string;
@@ -41,14 +43,20 @@ export const createProject = async ({
 			creatorId,
 		});
 
-		//create document and todo
-		const documentCreated = await getOrCreateDocument({
-			projectId: newProject._id,
-		});
+		// get Oauth Google Token
+		const token = await getOauthAccessToken();
+
+		//create document
+		const googleDocsCreated = await createGoogleDocument(
+			token,
+			newProject.name
+		);
+
+		// create todo
 		await createTodo(newProject._id);
 
 		// add document id and to the new project document
-		newProject.documentId = documentCreated._id;
+		newProject.documentId = googleDocsCreated.documentId;
 
 		// save project in DB
 		await newProject.save();
@@ -59,7 +67,7 @@ export const createProject = async ({
 	}
 };
 
-export const getProject = async (id: string | string[]): Promise<Project> => {
+export const getProject = async (id: string | string[]): Promise<any> => {
 	// connect to mongoDB
 	connectToDB();
 
@@ -112,11 +120,15 @@ export const deleteProject = async (projectId: string) => {
 	connectToDB();
 
 	try {
+		// delete project
 		const project = await Project.findByIdAndDelete(projectId);
 
 		if (!project) {
 			throw new Error('No project found');
 		}
+
+		// delete todo
+		await deleteTodo(project._id);
 	} catch (error: any) {
 		throw new Error(`Failed to delete project ${error.message}`);
 	}
@@ -127,17 +139,22 @@ export const getProjects = async ({
 	pageNumber = 1,
 	pageSize = 20,
 	sortBy = 'desc',
+	userId,
 }: {
 	searchString?: string;
 	pageNumber?: number;
 	pageSize?: number;
 	sortBy?: SortOrder;
+	userId: string | undefined | null;
 }) => {
 	// connect to mongoDB
 	connectToDB();
 
 	try {
-		const totalCount = await Project.find({});
+		// get the current user
+		const user = await User.findOne({ userId: userId }).exec();
+
+		const totalCount = await Project.find({ creatorId: user._id }).exec();
 		// Calculate the number of communities to skip based on the page number and page size.
 		const skipAmount = (pageNumber - 1) * pageSize;
 
@@ -146,6 +163,7 @@ export const getProjects = async ({
 
 		const query: FilterQuery<typeof Project> = {
 			name: { $regex: regex }, // Use the $regex operator to perform a case-insensitive search on the 'name' field.
+			creatorId: user._id,
 		};
 
 		// Define the sort options for the fetched communities based on createdAt field and provided sort order.
@@ -166,6 +184,36 @@ export const getProjects = async ({
 		const isNext = totalProjectsCount > skipAmount + projects.length;
 
 		return { projects, totalCount, isNext };
+	} catch (error: any) {
+		throw new Error(`Failed to get project ${error.message}`);
+	}
+};
+
+export const filterMonthlyProjectCounts = async ({
+	userId,
+	month,
+	year,
+}: {
+	userId: string | null | undefined;
+	month: string;
+	year: string;
+}) => {
+	// connect to mongoDB
+	connectToDB();
+
+	try {
+		// get the current user
+		const user = await User.findOne({ userId: userId }).exec();
+		const projects = await Project.find({ creatorId: user._id }).exec();
+
+		const filtedProjects = projects?.filter(project => {
+			const projectDate = project.createdAt;
+			return (
+				projectDate.getMonth() === +month && projectDate.getFullYear() === +year
+			);
+		});
+
+		return filtedProjects;
 	} catch (error: any) {
 		throw new Error(`Failed to get project ${error.message}`);
 	}

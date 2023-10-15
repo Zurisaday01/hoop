@@ -26,8 +26,8 @@ import { useCreateTask } from '@/hooks/useCreateTask';
 import { useToast } from '../ui/use-toast';
 
 const FormSchema = z.object({
-	content: z.string().min(5, {
-		message: 'Content must be at least 5 characters.',
+	content: z.string().min(2, {
+		message: 'Content must be at least 2 characters.',
 	}),
 	todoId: z.string(),
 });
@@ -113,7 +113,7 @@ const CreateTask = ({ todoId }: { todoId: string }) => {
 						type='submit'
 						className='bg-primary-light  hover:bg-primary-dark  dark:bg-primary-light text-dark-1 dark:hover:bg-primary-dark transition duration-300 ease-in-out disabled:bg-gray-400'
 						disabled={form.formState.isSubmitting || isCreating}>
-						{form.formState.isSubmitting ? (
+						{form.formState.isSubmitting || isCreating ? (
 							<MiniSpinner />
 						) : (
 							<span>Create</span>

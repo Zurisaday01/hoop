@@ -4,7 +4,6 @@ import { revalidatePath } from 'next/cache';
 //Model
 import Todo from '../models/todo.models';
 import { connectToDB } from '../mongoose';
-import { QueryFunctionContext } from 'react-query';
 
 interface createTaskParams {
 	todoId: string;
@@ -27,6 +26,21 @@ export const createTodo = async (projectId: string) => {
 		});
 	} catch (error: any) {
 		throw new Error(`Failed to create todo ${error.message}`);
+	}
+};
+
+export const deleteTodo = async (projectId: string) => {
+	// connect to mongoDB
+	connectToDB();
+
+	try {
+		const todo = await Todo.findOneAndDelete({ projectId: projectId });
+
+		if (!todo) {
+			throw new Error('No todo found');
+		}
+	} catch (error: any) {
+		throw new Error(`Failed to delete todo ${error.message}`);
 	}
 };
 

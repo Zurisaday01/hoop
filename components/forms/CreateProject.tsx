@@ -29,10 +29,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { isBase64Image, useUploadThing } from '@/lib/utils';
-import { createProject } from '@/lib/actions/project.actions';
 import MiniSpinner from '../shared/MiniSpinner';
 import { ToastAction } from '@radix-ui/react-toast';
 import Link from 'next/link';
+import { useCreateProject } from '@/hooks/useCreateProject';
 
 const FormSchema = z.object({
 	name: z.string().min(2, {
@@ -55,6 +55,7 @@ const CreateProject = ({ id }: { id: string }) => {
 	// setFile
 	const [files, setFiles] = useState<File[]>([]);
 	const { startUpload } = useUploadThing('media');
+	const { isCreating, createProject } = useCreateProject();
 
 	// Define form ui shadcn
 	const form = useForm<z.infer<typeof FormSchema>>({
@@ -74,48 +75,49 @@ const CreateProject = ({ id }: { id: string }) => {
 
 	// react hook form
 	const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-		try {
-			const blob = values.image;
+		const blob = values.image;
 
-			const hasImageChange = isBase64Image(blob);
+		const hasImageChange = isBase64Image(blob);
 
-			if (hasImageChange) {
-				const imgResponse = await startUpload(files);
+		if (hasImageChange) {
+			const imgResponse = await startUpload(files);
 
-				if (imgResponse && imgResponse[0].url) {
-					// Update the value
-					values.image = imgResponse[0].url;
-				}
+			if (imgResponse && imgResponse[0].url) {
+				// Update the value
+				values.image = imgResponse[0].url;
 			}
-
-			// change status format ('in-progress' => 'In progress')
-			values.status =
-				values.status.charAt(0).toUpperCase() +
-				values.status.slice(1).replace(/-/g, ' ');
-
-			// create project on DB
-			const newProject = await createProject(values);
-
-			toast({
-				title: '🎉 Project successfully created',
-				description: 'Good luck!',
-				action: (
-					<ToastAction altText='Go to the project'>
-						<Link
-							href={`/projects/${newProject._id}`}
-							className='font-josefin-sans bg-primary-light p-2 rounded-md transition duration-150 hover:bg-primary-dark dark:text-dark-2'>
-							Go
-						</Link>
-					</ToastAction>
-				),
-			});
-		} catch (error) {
-			setFiles([]);
-			toast({
-				title: 'Something went wrong 😔!!',
-				description: 'Failed to create project',
-			});
 		}
+
+		// change status format ('in-progress' => 'In progress')
+		values.status =
+			values.status.charAt(0).toUpperCase() +
+			values.status.slice(1).replace(/-/g, ' ');
+
+		// create project on DB
+		createProject(values, {
+			onSuccess: data => {
+				toast({
+					title: '🎉 Project successfully created',
+					description: 'Good luck!',
+					action: (
+						<ToastAction altText='Go to the project'>
+							<Link
+								href={`/projects/${data._id}`}
+								className='font-josefin-sans bg-primary-light p-2 rounded-md transition duration-150 hover:bg-primary-dark dark:text-dark-2'>
+								Go
+							</Link>
+						</ToastAction>
+					),
+				});
+			},
+			onError: () => {
+				setFiles([]);
+				toast({
+					title: 'Something went wrong 😔!!',
+					description: 'Failed to create project',
+				});
+			},
+		});
 	};
 
 	// handle image from uploadthing
@@ -176,7 +178,7 @@ const CreateProject = ({ id }: { id: string }) => {
 									placeholder='Project '
 									{...field}
 									className='dark:bg-dark-1 bg-light-1 border-none'
-									disabled={form.formState.isSubmitting}
+									disabled={form.formState.isSubmitting || isCreating}
 								/>
 							</FormControl>
 
@@ -198,7 +200,7 @@ const CreateProject = ({ id }: { id: string }) => {
 									accept='image/*'
 									placeholder='Choose cover image'
 									className='input_upload dark:bg-dark-1 bg-light-1 border-none'
-									disabled={form.formState.isSubmitting}
+									disabled={form.formState.isSubmitting || isCreating}
 									onChange={e => handleImage(e, field.onChange)}
 								/>
 							</FormControl>
@@ -214,7 +216,7 @@ const CreateProject = ({ id }: { id: string }) => {
 							<FormControl>
 								<Select
 									onValueChange={field.onChange}
-									disabled={form.formState.isSubmitting}
+									disabled={form.formState.isSubmitting || isCreating}
 									value={field.value}>
 									<SelectTrigger className='w-[180px] dark:bg-dark-1 bg-light-1 border-none'>
 										<SelectValue placeholder='Select a status' />
@@ -237,17 +239,17 @@ const CreateProject = ({ id }: { id: string }) => {
 					<Button
 						type='submit'
 						className='bg-primary-light  hover:bg-primary-dark  dark:bg-primary-light text-dark-1 dark:hover:bg-primary-dark transition duration-300 ease-in-out disabled:bg-gray-400'
-						disabled={form.formState.isSubmitting}>
-						{form.formState.isSubmitting ? (
+						disabled={form.formState.isSubmitting || isCreating}>
+						{form.formState.isSubmitting || isCreating ? (
 							<MiniSpinner />
 						) : (
-							<span>Submit</span>
+							<span>Create</span>
 						)}
 					</Button>
 					<Button
 						type='reset'
 						className='transition duration-300 ease-in-out'
-						disabled={form.formState.isSubmitting}
+						disabled={form.formState.isSubmitting || isCreating}
 						onClick={() => form.reset()}>
 						Cancel
 					</Button>

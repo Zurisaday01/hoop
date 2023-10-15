@@ -12,6 +12,7 @@ import {
 import UpdateProject from '../forms/UpdateProject';
 import DeleteProject from '../forms/DeleteProject';
 import { DialogDescription } from '@radix-ui/react-dialog';
+import MiniSpinner from './MiniSpinner';
 
 interface ProjectHeaderProps {
 	id: string;
@@ -52,7 +53,7 @@ const ProjectHeader = ({
 								Update
 							</Button>
 						</DialogTrigger>
-						<DialogContent className='sm:max-w-[400px]'>
+						<DialogContent className='sm:max-w-[400px] bg-light-2'>
 							<DialogHeader>
 								<DialogTitle className='font-josefin-sans mb-3 text-2xl text-start'>
 									Update Project

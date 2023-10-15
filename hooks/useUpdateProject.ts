@@ -11,6 +11,10 @@ export const useUpdateProject = (projectId: string) => {
 			queryClient.invalidateQueries({
 				queryKey: ['project', projectId],
 			});
+			queryClient.invalidateQueries({
+				// invalidate projects to show the update in the dashboard
+				queryKey: ['projects'],
+			});
 		},
 	});
 

@@ -1,3 +1,4 @@
+import { SortOrder } from 'mongoose';
 import {
 	Select,
 	SelectContent,
@@ -6,11 +7,20 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '../ui/select';
+import { useRouter } from 'next/navigation';
 
 const SortBy = () => {
+	const router = useRouter();
+
+	const handleChange = (value: SortOrder) => {
+		router.push(`/projects?sortBy=${value}`);
+	};
+
 	return (
-		<Select value='desc'>
-			<SelectTrigger className='w-[200px]'>
+		<Select
+			defaultValue='desc'
+			onValueChange={(value: string) => handleChange(value as SortOrder)}>
+			<SelectTrigger className='w-[200px] dark:bg-dark-1 bg-light-1 border-none'>
 				<SelectValue />
 			</SelectTrigger>
 			<SelectContent>
