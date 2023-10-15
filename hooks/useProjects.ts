@@ -9,11 +9,11 @@ const useProjects = ({
 	sortBy,
 	userId,
 }: {
-	searchString: string;
-	pageNumber: number;
-	pageSize: number;
-	sortBy: string;
-	userId: string | undefined;
+	searchString?: string;
+	pageNumber?: number;
+	pageSize?: number;
+	sortBy?: string;
+	userId: string | null | undefined;
 }) => {
 	const { data, isLoading, error } = useQuery({
 		queryKey: ['projects', pageNumber, searchString, sortBy],
