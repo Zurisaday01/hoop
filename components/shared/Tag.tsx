@@ -21,7 +21,7 @@ const Tag = ({ status, mini, children }: TagProps) => {
 			className={`${
 				!mini
 					? 'py-1 px-4 uppercase  rounded-full text-[10px]'
-					: 'py-1 px-3 uppercase rounded-full text-[5px]'
+					: 'py-1 px-3 uppercase rounded-full text-[8px]'
 			} ${bgColors[status as keyof typeof bgColors]} ${
 				textColors[status as keyof typeof textColors]
 			}`}>
