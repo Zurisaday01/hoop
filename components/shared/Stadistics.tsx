@@ -65,26 +65,20 @@ const Stadistics = ({
 	};
 
 	const options = {
-		responsive: true,
-		plugins: {
-			legend: {
-				position: 'top' as const,
-			},
-			title: {
-				display: true,
-				text: 'Chart.js Bar Chart',
-			},
-		},
+		responsize: true,
+		maintainAspectRatio: false,
 	};
 
 	return (
 		<div className='flex flex-col md:flex-row gap-4 w-full h-full'>
 			<div className='bg-light-1 dark:bg-dark-1 rounded-lg p-4 h-full w-full md:w-2/5'>
-				<Doughnut
-					className='font-nunito w-full'
-					data={data}
-					options={options}
-				/>
+				<div className='h-[25rem] w-[100%]'>
+					<Doughnut
+						className='font-nunito !h-auto !w-auto'
+						data={data}
+						options={options}
+					/>
+				</div>
 			</div>
 			<div className='bg-light-1 dark:bg-dark-1 rounded-lg p-4 md:w-[60%] w-full h-full'>
 				<h2 className='font-josefin-sans mb-4'>Monthly Project Counts</h2>
@@ -92,13 +86,17 @@ const Stadistics = ({
 					userId={userId}
 					setFilteredDate={setFilteredDate}
 				/>
-				<div>
+				<div className='h-[20rem] w-[100%]'>
 					{filteredData.completed === undefined ||
 					filteredData.inProgress === undefined ||
 					filteredData.waiting === undefined ? (
 						<Spinner />
 					) : (
-						<Bar data={databar} />
+						<Bar
+							className='font-nunito !h-auto !w-auto'
+							data={databar}
+							options={options}
+						/>
 					)}
 				</div>
 			</div>

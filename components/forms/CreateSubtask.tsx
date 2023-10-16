@@ -85,7 +85,7 @@ const CreateSubtask = ({
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className='p-[7px] h-7 w-7 rounded-full bg-primary-light  hover:bg-primary-dark  dark:bg-primary-light text-dark-1 dark:hover:bg-primary-dark transition duration-300 ease-in-out disabled:bg-gray-400 mr-2'>
+				<Button className='p-[7px] h-7 w-7 rounded-full bg-primary-light  hover:bg-primary-dark  dark:bg-primary-light text-dark-1 dark:hover:bg-primary-dark transition duration-300 ease-in-out disabled:bg-gray-400'>
 					<PlusIcon className='w-full' />
 				</Button>
 			</DialogTrigger>

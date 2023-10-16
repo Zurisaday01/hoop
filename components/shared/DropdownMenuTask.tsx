@@ -47,7 +47,7 @@ const DropdownMenuTask = ({
 			<DropdownMenuTrigger asChild>
 				<MoreVerticalIcon className='h-5 cursor-pointer' />
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className='w-30'>
+			<DropdownMenuContent className='w-30 dark:bg-dark-1'>
 				<DropdownMenuGroup>
 					{isEdit ? (
 						<DropdownMenuItem

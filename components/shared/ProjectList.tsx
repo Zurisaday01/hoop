@@ -22,7 +22,7 @@ const ProjectList = ({ isLoading, projects }: ProjectListProps) => {
 		);
 
 	return (
-		<div className='grid lg:grid-cols-5 md:grid-cols-4 grid-cols-3 gap-4 flex-1'>
+		<div className='grid lg:grid-cols-5 md:grid-cols-4 grid-cols-3 max-sm:grid-cols-2 gap-4 flex-1'>
 			{projects?.length === 0 && <p>No projects</p>}
 			{projects?.map(project => (
 				<ProjectCard project={project} />

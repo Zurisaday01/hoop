@@ -20,15 +20,15 @@ const SortBy = () => {
 		<Select
 			defaultValue='desc'
 			onValueChange={(value: string) => handleChange(value as SortOrder)}>
-			<SelectTrigger className='w-[200px] dark:bg-dark-1 bg-light-1 border-none'>
+			<SelectTrigger className='w-[200px] dark:bg-dark-1 text-slate-500 bg-light-1 border-none'>
 				<SelectValue />
 			</SelectTrigger>
 			<SelectContent>
 				<SelectGroup>
-					<SelectItem className='font-nunito' value='desc'>
+					<SelectItem className='font-nunito text-slate-500' value='desc'>
 						Desc (Newest to oldest)
 					</SelectItem>
-					<SelectItem className='font-nunito' value='asc'>
+					<SelectItem className='font-nunito text-slate-500' value='asc'>
 						Asc (Oldest to newest)
 					</SelectItem>
 				</SelectGroup>

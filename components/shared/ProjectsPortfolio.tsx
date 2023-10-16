@@ -40,7 +40,7 @@ const ProjectsPortfolio = ({
 
 	return (
 		<div className='flex flex-col gap-6  h-full'>
-			<div className='flex justify-between'>
+			<div className='flex justify-between gap-2 max-sm:flex-col'>
 				<h1 className='heading-primary'>Projects</h1>
 				<div className='flex gap-5'>
 					<SortBy />

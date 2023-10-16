@@ -25,7 +25,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 					alt={project.name}
 				/>
 			</div>
-			<div className='flex justify-between items-center gap-2'>
+			<div className='flex justify-between items-start gap-2'>
 				<h2 className='font-josefin-sans'>{project.name}</h2>
 				<Tag status={project.status} mini={true}>
 					{project.status}

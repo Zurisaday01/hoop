@@ -37,7 +37,7 @@
 @layer components {
 	/* <main> */
 	.main-container {
-		@apply flex min-h-screen flex-1 flex-col items-center bg-light-2 dark:bg-dark-2 px-6 pb-10 pt-28 max-md:pb-32 sm:px-10;
+		@apply flex min-h-screen flex-1 flex-col items-center bg-light-2 dark:bg-dark-2 px-6 pb-10 pt-28  sm:px-10;
 	}
 	/* <h1> */
 	.heading-primary {

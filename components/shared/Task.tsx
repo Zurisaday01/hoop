@@ -130,7 +130,7 @@ const Task = ({ task, todoId }: TaskProps) => {
 					</AccordionContent>
 				</AccordionItem>
 			</Accordion>
-			<div className='mt-[25px] flex gap-3 '>
+			<div className='mt-[25px] flex gap-2'>
 				<div className='mt-[5px]'>
 					<DropdownMenuTask
 						todoId={todoId}
@@ -139,7 +139,7 @@ const Task = ({ task, todoId }: TaskProps) => {
 						isEdit={isEdit}
 					/>
 				</div>
-				<div className='flex'>
+				<div className='flex flex-col items-center '>
 					<CreateSubtask
 						todoId={todoId}
 						taskId={task._id}

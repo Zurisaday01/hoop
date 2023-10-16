@@ -29,7 +29,7 @@ const ProjectHeader = ({
 	creatorId,
 }: ProjectHeaderProps) => {
 	return (
-		<div className='flex gap-10'>
+		<div className='flex items-center gap-10'>
 			<div className='shadow-image rounded-lg overflow-hidden bg-white'>
 				<Image
 					className='object-cover'

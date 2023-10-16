@@ -9,6 +9,10 @@ const config: Config = {
 	darkMode: ['class'],
 	theme: {
 		extend: {
+			screens: {
+				'max-sm': { max: '530px' },
+			},
+
 			container: {
 				center: true,
 				padding: '2rem',
