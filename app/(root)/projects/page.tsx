@@ -9,9 +9,9 @@ const page = async ({
 	const user = await currentUser();
 
 	return (
-		<>
+		<div className='md:pb-0 pb-28'>
 			<ProjectsPortfolio searchParams={searchParams} userId={user?.id} />
-		</>
+		</div>
 	);
 };
 export default page;

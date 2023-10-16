@@ -23,7 +23,7 @@ export default function Home() {
 	).length;
 
 	return (
-		<div className='flex flex-col gap-8'>
+		<div className='flex flex-col gap-8 md:pb-0 pb-28'>
 			<h1 className='text-3xl font-josefin-sans'>Dashboard</h1>
 			{isLoading ? (
 				<Spinner />

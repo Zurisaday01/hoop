@@ -12,7 +12,7 @@ const page = ({ params }: { params: { id: string } }) => {
 	if (isLoading || !project) return <Spinner />;
 
 	return (
-		<section className='flex flex-col gap-8'>
+		<section className='flex flex-col gap-8 md:pb-0 pb-28'>
 			<ProjectHeader
 				id={project._id}
 				name={project.name}

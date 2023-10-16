@@ -54,10 +54,10 @@ export default function RootLayout({
 						<ThemeProvider attribute='class'>
 							<Topbar />
 
-							<main className='flex flex-row '>
+							<main className='flex'>
 								<LeftSidebar />
 								<section className='main-container'>
-									<div className='w-full max-w-5xl pt-4 '>{children}</div>
+									<div className='w-full max-w-5xl pt-4'>{children}</div>
 								</section>
 							</main>
 							<Bottombar />
