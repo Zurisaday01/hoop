@@ -72,9 +72,9 @@ const Stadistics = ({
 	return (
 		<div className='flex flex-col md:flex-row gap-4 w-full h-full'>
 			<div className='bg-light-1 dark:bg-dark-1 rounded-lg p-4 h-full w-full md:w-2/5'>
-				<div className='h-[25rem] w-[100%]'>
+				<div>
 					<Doughnut
-						className='font-nunito !h-auto !w-auto'
+						className='font-nunito !h-[25rem] !w-full'
 						data={data}
 						options={options}
 					/>
@@ -86,14 +86,14 @@ const Stadistics = ({
 					userId={userId}
 					setFilteredDate={setFilteredDate}
 				/>
-				<div className='h-[20rem] w-[100%]'>
+				<div>
 					{filteredData.completed === undefined ||
 					filteredData.inProgress === undefined ||
 					filteredData.waiting === undefined ? (
 						<Spinner />
 					) : (
 						<Bar
-							className='font-nunito !h-auto !w-auto'
+							className='font-nunito !h-[20rem] !w-full'
 							data={databar}
 							options={options}
 						/>
