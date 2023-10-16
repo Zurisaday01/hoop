@@ -32,8 +32,8 @@ interface Project {
 const ProjectOptions = ({ project }: { project: Project }) => {
 	const { isLoading, todo } = useTodo(project._id);
 
-	const totalTasks = todo?.tasks?.length;
-	const doneTasks = todo?.tasks?.filter(task => task.done);
+	const totalTasks = todo?.tasks.length;
+	const doneTasks = todo?.tasks.filter((task: Task) => task.done);
 
 	return (
 		<Tabs defaultValue='document' className='w-full'>

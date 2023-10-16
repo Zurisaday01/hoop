@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 //Model
 import Todo from '../models/todo.models';
 import { connectToDB } from '../mongoose';
+import { Model } from 'mongoose';
 
 interface createTaskParams {
 	todoId: string;
@@ -62,7 +63,7 @@ interface Todo {
 	tasks: Task[];
 }
 
-export const getTodo = async (projectId: string) => {
+export const getTodo = async (projectId: string): Promise<Todo | null> => {
 	// connect to mongoDB
 	connectToDB();
 	try {
@@ -70,13 +71,11 @@ export const getTodo = async (projectId: string) => {
 		//This can help prevent circular references caused by Mongoose's internal data structures.
 		const todo = await Todo.findOne({ projectId: projectId }).lean().exec();
 
-		console.log('ID', projectId);
-
 		if (!todo) {
 			throw new Error('No todo found');
 		}
 
-		return todo;
+		return todo as Todo;
 	} catch (error: any) {
 		throw new Error(`Failed to get todo ${error.message}`);
 	}
