@@ -22,14 +22,18 @@ export const getOauthAccessToken = async () => {
 	try {
 		const { userId } = auth();
 
-		const [OauthAccessToken] = await clerk.users.getUserOauthAccessToken(
-			userId,
-			'oauth_google'
-		);
+		if (userId) {
+			const [OauthAccessToken] = await clerk.users.getUserOauthAccessToken(
+				userId,
+				'oauth_google'
+			);
 
-		const { token } = OauthAccessToken;
+			const { token } = OauthAccessToken;
 
-		return token;
+			return token;
+		} else {
+			throw new Error('User ID is null');
+		}
 	} catch (error: any) {
 		throw new Error(`Failed to get Google access token ${error.message}`);
 	}

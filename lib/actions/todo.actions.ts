@@ -4,7 +4,6 @@ import { revalidatePath } from 'next/cache';
 //Model
 import Todo from '../models/todo.models';
 import { connectToDB } from '../mongoose';
-import { Model } from 'mongoose';
 
 interface createTaskParams {
 	todoId: string;
