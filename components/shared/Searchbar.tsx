@@ -24,7 +24,7 @@ const Searchbar = () => {
 	};
 	return (
 		<div className='relative'>
-			<SearchIcon className='absolute left-1 top-2 text-slate-400' />
+			<SearchIcon className='absolute left-1 top-3 h-[18px] text-slate-400' />
 			<Input
 				value={searchTerm}
 				onChange={handleInputChange}

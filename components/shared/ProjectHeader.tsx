@@ -48,7 +48,7 @@ const ProjectHeader = ({
 				<div className='flex gap-3 mt-1'>
 					<Dialog>
 						<DialogTrigger asChild>
-							<Button className='bg-[#6787F9] dark:bg-[#6787F9] dark:text-light-1 transition duration-150 hover:bg-[#3e58b4]'>
+							<Button className='bg-[#6787F9] dark:bg-[#6787F9] dark:text-light-1 transition duration-150 hover: dark:hover:bg-[#3e58b4] hover:bg-[#3e58b4]'>
 								Update
 							</Button>
 						</DialogTrigger>
@@ -70,7 +70,7 @@ const ProjectHeader = ({
 
 					<Dialog>
 						<DialogTrigger asChild>
-							<Button className='bg-[#FF6421] dark:bg-[#FF6421] dark:text-light-1  transition duration-150 hover:bg-[#963823]'>
+							<Button className='bg-[#FF6421] dark:bg-[#FF6421] dark:text-light-1  transition duration-150 hover:bg-[#963823] dark:hover:bg-[#963823]'>
 								Delete
 							</Button>
 						</DialogTrigger>
